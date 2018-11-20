@@ -28,9 +28,8 @@ $(document).on('click','.addVids',function() {
     $('.recipeList').hide();
     $('.recipeInfo').show();
     $('.vids').empty();
-    $('.article').empty();
-    $('.vids').append(`<button type="button" class="btn btn-primary back">Back</button>`);
-    $('.article').append(`<button type="button" class="btn btn-primary back">Back</button>`);
+    
+    $('.vids').append(`<button type="button" class="btn btn-primary back">Back</button>`);    
     var query = encodeURIComponent($(this).text()).replace(/%20/g, "+");
     var request = gapi.client.youtube.search.list({
         part: 'snippet',
@@ -56,6 +55,7 @@ $('.rs').css('height',$('#targetRecepi').width() * 9/16);
 }
 $(document).on('click','.back',function(){
     $('.vids').empty();
+    $('.article').empty();
     $('.recipeInfo').hide();
     $('.recipeList').show();
 })
