@@ -6,11 +6,11 @@ var ingShowList = [];
 var digests = [];
 var calories = [];
 var weights = [];
-var coockTimes = [];
+var cookTimes = [];
 var instructions = [];
 var imageShowList = [];
-var nameRecepi = [];
-var totalingredients = [];
+var nameRecipe = [];
+var totalIngredients = [];
 var ingWeightList = [];
 var nutritionFacts = [];
 var nutritionTotal = [];
@@ -59,7 +59,7 @@ function doAjax(queryURL) {
 
 				for (var j = 0; j < data.hits[i].recipe.ingredients.length; j++) {
 					var ingcon = data.hits[i].recipe.ingredients.length;
-					totalingredients.push(ingcon);
+					totalIngredients.push(ingcon);
 					var ing = data.hits[i].recipe.ingredients[j].text;
 					var ingweight = data.hits[i].recipe.ingredients[j].weight;
 					ingList.append(`<li>${ing}</li>`);
@@ -74,7 +74,7 @@ function doAjax(queryURL) {
 				}
 				calories.push(data.hits[i].recipe.calories);
 				weights.push(data.hits[i].recipe.totalWeight);
-				coockTimes.push(data.hits[i].recipe.totalTime);
+				cookTimes.push(data.hits[i].recipe.totalTime);
 				instructions.push(data.hits[i].recipe.url);
 				digests.push(digestList);
 				ingShowList.push(ingList);
@@ -91,7 +91,7 @@ function doAjax(queryURL) {
 				card.append(img);
 
 				title = data.hits[i].recipe.label;
-				nameRecepi.push(title);
+				nameRecipe.push(title);
 				// var link = $(`<a href="#" style="text-decoration:none;" >`);
 				var sec = $("<div class='card-divider'>")
 				var span = $('<p style="margin-top:10px;">');
@@ -121,7 +121,7 @@ $(document).on('click', '.addVids', function () {
 	var im = $("<img class='thumbnail' data-content'" + datacon + "'>");
 	im.attr("src", imgsrc);
 	$(".secondpageimg").append(im);
-	$(".name").append(nameRecepi[parseInt($(this).attr('data-content'))]);
+	$(".name").append(nameRecipe[parseInt($(this).attr('data-content'))]);
 	$('.arti').append(ingShowList[parseInt($(this).attr('data-content'))]);
 	$('.wei').append(ingWeightList[parseInt($(this).attr('data-content'))]);
 	$('.nutritions').append(nutritionFacts[parseInt($(this).attr('data-content'))]);
@@ -143,7 +143,7 @@ $(document).on('click', '.addVids', function () {
 	$('.article').append(`<h3>${weights[$(this).attr('data-content')]}</h3>`);
 	$('.article').append('<hr>');
 	$('.article').append('<h2>Cook Time</h2>');
-	$('.article').append(`<h3>${coockTimes[$(this).attr('data-content')]} /minutes</h3>`);
+	$('.article').append(`<h3>${cookTimes[$(this).attr('data-content')]} /minutes</h3>`);
 	$('.article').append('<hr>');
 	$('.article').append('<h2>Instructions</h2>');
 	$('.article').append(`<a target="_blank" href="${instructions[$(this).attr('data-content')]}"><h3>Click here to see instructions</h3>`);
@@ -156,11 +156,11 @@ $(".addRecipe").on("click", function (e) {
 	$(".recipe-list").empty();
 	e.preventDefault();
 
-	userInput = $("#targetRecepi").val().trim().toLowerCase();
+	userInput = $("#targetRecipe").val().trim().toLowerCase();
 
 	var searchURL = queryURLbase + userInput;
 	doAjax(searchURL);
-	$("#targetRecepi").val("");
+	$("#targetRecipe").val("");
 });
 
 // var saveLatter = [];
@@ -212,7 +212,7 @@ $('.get_tody_btn').click(function () {
 		var coma =checkboxarray[i]+",";
 		
 	}
-	$("#targetRecepi").val(coma);
+	$("#targetRecipe").val(coma);
 
 	
 });

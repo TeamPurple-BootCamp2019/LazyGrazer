@@ -17,7 +17,7 @@
 .view{
     width: 100%;
 }
-.RecepiContainer{
+.RecipeContainer{
     margin-bottom: 25px;
 }
 .flex-container {
@@ -110,7 +110,7 @@ a{
     margin-bottom: 30px;
 }
 
-#targetRecepi{
+#targetRecipe{
     margin-bottom: 15px;
 }
 
