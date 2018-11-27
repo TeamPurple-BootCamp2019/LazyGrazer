@@ -29,7 +29,9 @@ $(document).on('click','.addVids',function() {
     $('.recipeInfo').show();
     $('.vids').empty();
     
+
     // $('.vids').append(`<button type="button" class="btn btn-primary back">Back</button>`);    
+
     var query = encodeURIComponent($(this).text()).replace(/%20/g, "+");
     var request = gapi.client.youtube.search.list({
         part: 'snippet',

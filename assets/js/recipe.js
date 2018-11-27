@@ -23,6 +23,7 @@ function doAjax(queryURL) {
 										</thead>
 										<tbody>`
 				);
+
 				var digestList = $(`<table class="table">
 								<thead class="thead-dark">
 								<tr>
@@ -31,7 +32,9 @@ function doAjax(queryURL) {
 								</tr>
 								</thead>
 								<tbody>`
+
 				);
+
 				for (var j = 0; j < data.hits[i].recipe.ingredients.length; j++) {
 					var ing = data.hits[i].recipe.ingredients[j].text;
 					var ingweight = data.hits[i].recipe.ingredients[j].weight;
@@ -58,6 +61,7 @@ function doAjax(queryURL) {
 
 				title = data.hits[i].recipe.label;
 
+
 				var link = $(`<a  data-content=${i} href="#" style="text-decoration:none;" class="addVids">`);
 				var span = $('<span class="badge badge-pill badge-dark" style="margin-top:10px;">');
 				span.text(title);
@@ -70,6 +74,16 @@ function doAjax(queryURL) {
 			$('.recipeList').append(flex);
 		});
 };
+
+
+				var link = $(`<a  data-content=${i} href="#" style="text-decoration:none;" class="addVids">`);
+				var span = $('<span class="badge badge-pill badge-dark" style="margin-top:10px;">');
+				span.text(title);
+				link.append(span);
+				card.append(link);
+				flex.append(card);
+				
+
 
 
 $(document).on('click', '.addVids', function () {
