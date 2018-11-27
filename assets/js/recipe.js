@@ -17,7 +17,7 @@ function doAjax(queryURL) {
 				var ingList = $(`<table class="table">
 										<thead class="thead-dark">
 										<tr>
-											<th scope="col">Ingerediant</th>
+											<th scope="col">Ingredient</th>
 											<th scope="col">Weight(ounce)</th>
 										</tr>
 										</thead>
