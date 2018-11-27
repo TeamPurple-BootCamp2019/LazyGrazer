@@ -40,4 +40,129 @@
 .videoContainer{
     margin-bottom: 25px;
 }
+.table{
+    margin-top: 20px;
+}
+
+/* =================================== */
+.side{
+    position: sticky;
+}
+body{
+    color: black;
+    background-image: url("../image/logo.png")
+}
+.sidebar{
+    /* background-color: #E6E6E6; */
+    background-color: rgb(211, 210, 210);
+    /* opacity: 0.9;
+    background-color: black;
+    color: white; */
+    height: 100vh;
+}
+.title{
+    border-radius: 5px;
+    margin-top: 10px;
+    padding: 5px;
+    opacity: 0.9;
+    background-color: black;
+    color: white;
+    /* background-color: #D7ECFA; */
+}
+.logo{
+    margin-top: 15px;
+    margin-left: 10px;
+}
+
+.recipeList{
+    margin-top: 20px;
+}
+.image{
+    height: 250px;
+    width: 500px;
+    /* margin-left: 20px; */
+}
+
+.card{
+    width: 250px;
+    margin-right: 20px;
+    margin-bottom: 15px;
+}
+
+
+.food{
+    clear: both;
+}
+li{
+    list-style-type: none;
+    
+}
+.secondpageimg{
+    margin-top: 15px;
+    height: 350px;
+    width: 350px;
+}
+a{
+    color: black;
+}
+.name{
+    margin-bottom: 30px;
+}
+
+#targetRecepi{
+    margin-bottom: 15px;
+}
+
+.select, .addRecipe{
+    margin-top: 15px;
+}
+
+.active {
+    background-color: green;
+    color: white;
+}
+.addVids{
+    float: left;
+}
+.lazyspan{
+    color: red;
+}
+.grazerspan{
+    color: rgb(91, 90, 90);
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+    display: none;
+    background-color: #262626;
+    padding-left: 8px;
+}
+
+/* Optional: Style the caret down icon */
+.fa-caret-down {
+    float: right;
+    padding-right: 8px;
+}
+
+.sidenav a, .dropdown-btn {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: black;
+    display: block;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+}
+
+/* On mouse-over */
+.sidenav a:hover, .dropdown-btn:hover {
+    color: #f1f1f1;
+}
+
+
+/* ==================================== */
 

@@ -1,17 +1,17 @@
 
-function arrayOfEl(display,t){
-    res=display;
-    for(var n=0;n<t.length;n++){
-      res=res.replace(/\{\{(.*?)\}\}/g,function(e,r){
-        return t[n][r];
-      })
+function arrayOfEl(display, t) {
+    res = display;
+    for (var n = 0; n < t.length; n++) {
+        res = res.replace(/\{\{(.*?)\}\}/g, function (e, r) {
+            return t[n][r];
+        })
     }
-      return res
-    }
-function displayVideo(){
-    var display = `<div class="videoContainer">
-    <h2>{{video}}</h2>
-    <iframe class="rs view" width="640" height="360" src="//www.youtube.com/embed/{{videoId}}" frameborder="0" allowfullscreen>
+    return res
+}
+function displayVideo() {
+    var display = `<div class="radius bordered shadow card addVids">
+    <h5>{{video}}</h5>
+    <iframe class="rs view" width="400" height="400" src="//www.youtube.com/embed/{{videoId}}" frameborder="0" allowfullscreen>
     </iframe></div>`;
     return display;
 
@@ -23,17 +23,17 @@ function onClientLoad() {
 function onYouTubeApiLoad() {
     gapi.client.setApiKey('AIzaSyAh9sn6135qdZ9ZxGV41J-_-bWC5tbGy5U');
 }
- 
-$(document).on('click','.addVids',function() {
+
+$(document).on('click', '.addVids', function () {
     $('.recipeList').hide();
     $('.recipeInfo').show();
     $('.vids').empty();
-    
-    // $('.vids').append(`<button type="button" class="btn btn-primary back">Back</button>`);    
+
+    // $('.vids').append(`<button type="button" class="btn btn-primary back">Back</button>`);
     var query = encodeURIComponent($(this).text()).replace(/%20/g, "+");
     var request = gapi.client.youtube.search.list({
         part: 'snippet',
-        q:query,
+        q: query,
         type: 'video',
         maxResults: 6,
         order: 'viewCount',
@@ -44,16 +44,18 @@ $(document).on('click','.addVids',function() {
 function searchVideos(response) {
 
     var videoResult = response.items;
-    $.each(videoResult,function(index,item){
+    $.each(videoResult, function (index, item) {
+       
+        
         $(".vids").append(arrayOfEl(displayVideo(), [{"video":item.snippet.title, "videoId":item.id.videoId}]));
     });
     resetHeight();
-    $(window).on('resize',resetHeight);
+    $(window).on('resize', resetHeight);
 }
-function resetHeight(){
-$('.rs').css('height',$('#targetRecepi').width() * 9/16);
+function resetHeight() {
+    $('.rs').css('height', $('#targetRecepi').width() * 9 / 16);
 }
-$(document).on('click','.back',function(){
+$(document).on('click', '.back', function () {
     $('.vids').empty();
     $('.article').empty();
     $('.recipeInfo').hide();
