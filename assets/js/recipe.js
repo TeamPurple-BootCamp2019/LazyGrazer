@@ -5,7 +5,7 @@ var ingShowList = [];
 var digests = [];
 var calories = [];
 var weights = [];
-var coockTimes = [];
+var cookTimes = [];
 var instructions = [];
 function doAjax(queryURL) {
 	fetch(queryURL)
@@ -45,7 +45,7 @@ function doAjax(queryURL) {
 				}
 				calories.push(data.hits[i].recipe.calories);
 				weights.push(data.hits[i].recipe.totalWeight);
-				coockTimes.push(data.hits[i].recipe.totalTime);
+				cookTimes.push(data.hits[i].recipe.totalTime);
 				instructions.push(data.hits[i].recipe.url);
 				digests.push(digestList);
 				ingShowList.push(ingList);
@@ -78,7 +78,7 @@ $(document).on('click', '.addVids', function () {
 	$('.article').append('<h2>Ingredients</h2>');
 	$('.article').append(ingShowList[parseInt($(this).attr('data-content'))]);
 	$('.article').append('<hr>');
-	$('.article').append('<h2>Nutritions</h2>');
+	$('.article').append('<h2>Nutrition</h2>');
 	$('.article').append(digests[parseInt($(this).attr('data-content'))]);
 	$('.article').append('<hr>');
 	$('.article').append('<h2>Calories</h2>');
@@ -88,7 +88,7 @@ $(document).on('click', '.addVids', function () {
 	$('.article').append(`<h3>${weights[$(this).attr('data-content')]}</h3>`);
 	$('.article').append('<hr>');
 	$('.article').append('<h2>Cook Time</h2>');
-	$('.article').append(`<h3>${coockTimes[$(this).attr('data-content')]} /minutes</h3>`);
+	$('.article').append(`<h3>${cookTimes[$(this).attr('data-content')]} /minutes</h3>`);
 	$('.article').append('<hr>');
 	$('.article').append('<h2>Instructions</h2>');
 	$('.article').append(`<a target="_blank" href="${instructions[$(this).attr('data-content')]}"><h3>Click here to see instructions</h3>`);
@@ -99,9 +99,9 @@ $(".addRecipe").on("click", function (e) {
 	$("#recipe-list").empty();
 	e.preventDefault();
 
-	userInput = $("#targetRecepi").val().trim().toLowerCase();
+	userInput = $("#targetRecipe").val().trim().toLowerCase();
 
 	var searchURL = queryURLbase + userInput;
 	doAjax(searchURL);
-	$("#targetRecepi").val("");
+	$("#targetRecipe").val("");
 });

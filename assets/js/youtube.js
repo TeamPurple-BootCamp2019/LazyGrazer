@@ -51,7 +51,7 @@ function searchVideos(response) {
     $(window).on('resize',resetHeight);
 }
 function resetHeight(){
-$('.rs').css('height',$('#targetRecepi').width() * 9/16);
+$('.rs').css('height',$('#targetRecipe').width() * 9/16);
 }
 $(document).on('click','.back',function(){
     $('.vids').empty();
