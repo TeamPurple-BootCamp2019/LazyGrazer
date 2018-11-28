@@ -2,58 +2,110 @@
 
 var queryURLbase = "https://api.edamam.com/search?&app_id=192e6853&app_key=97cc74f29550dbca8f09e9ac463a150f&from=0&to=13&q=";
 var ingShowList = [];
+var ingredientList = [];
+var ingredientLength = [];
+var dietList = [];
+var healthList = [];
 var digests = [];
 var calories = [];
+var servings = [];
 var weights = [];
 var cookTimes = [];
 var instructions = [];
+var imageURL = [];
+var labelList = [];
+
 function doAjax(queryURL) {
 	fetch(queryURL)
 		.then((resp) => resp.json())
 		.then(function (data) {
 			console.log(data);
+
 			var flex = $('<div class="row">');
+		
+
 			for (var i = 0; i < 13; i++) {
-				var ingList = $(`<table class="table">
-										<thead class="thead-dark">
-										<tr>
-											<th scope="col">Ingredients</th>
-											<th scope="col">Weight(ounce)</th>
-										</tr>
-										</thead>
-										<tbody>`
-								);
-				var digestList = $(`<table class="table">
+
+
+				// var ingList = $(`<table class="table">
+				// 						<thead class="thead-dark">
+				// 						<tr>
+				// 							<th scope="col">Ingredient</th>
+				// 							<th scope="col">Weight(ounce)</th>
+				// 						</tr>
+				// 						</thead>
+				// 						<tbody>`
+				// 				);
+
+				var ingList = [];
+				var dList = [];
+				var hList = [];
+
+				var digestList = $(`<table class="table-condensed">
 								<thead class="thead-dark">
 								<tr>
-									<th scope="col">Nutrition Facts</th>
-									<th scope="col">Total</th>
+									<th scope="col">Nutrition facts</th>
+									<th scope="col">Total (per serving)</th>
+									<th scope="col">Daily %</th>
+
 								</tr>
 								</thead>
 								<tbody>`
 						);
-				for (var j = 0; j < data.hits[i].recipe.ingredients.length; j++) {
-					var ing = data.hits[i].recipe.ingredients[j].text;
-					var ingweight = data.hits[i].recipe.ingredients[j].weight;
-					ingList.append(`<tr class="table-warning"><td class="table-warning">${ing}</td><td class="table-warning">${ingweight}</td></tr>`)
 
+				// for (var j = 0; j < data.hits[i].recipe.ingredients.length; j++) {
+				// 	var ing = data.hits[i].recipe.ingredients[j].text;
+				// 	var ingweight = data.hits[i].recipe.ingredients[j].weight;
+				// 	ingList.append(`<tr class="table-warning"><td class="table-warning">${ing}</td><td class="table-warning">${ingweight}</td></tr>`)
+				// }
+
+				for (var j = 0; j < data.hits[i].recipe.ingredientLines.length; j++) {
+					var ing = data.hits[i].recipe.ingredientLines[j];
+					
+					ingList.push(`<li>${ing}</li>`)
+					// console.log(ingList)
 				}
+
+				for (var j = 0; j < data.hits[i].recipe.dietLabels.length; j++) {
+					var diet = data.hits[i].recipe.dietLabels[j];
+					
+					dList.push(`<li>${diet}</li>`)
+				
+				}
+
+				for (var j = 0; j < data.hits[i].recipe.healthLabels.length; j++) {
+					var health = data.hits[i].recipe.healthLabels[j];
+					
+					hList.push(`<li>${health}</li>`)
+					
+				}
+
 				for (var j = 0; j < data.hits[i].recipe.digest.length; j++) {
 					var dig = data.hits[i].recipe.digest[j].label;
-					var digTotal = data.hits[i].recipe.digest[j].total;
-					digestList.append(`<tr class="table-warning"><td class="table-warning">${dig}</td><td class="table-warning">${digTotal}</td></tr>`)
+					var digTotal = data.hits[i].recipe.digest[j].total.toFixed(0) / data.hits[i].recipe.yield;
+					var dailyTotal = data.hits[i].recipe.digest[j].daily.toFixed(0) / data.hits[i].recipe.yield;
+					digestList.append(`<tr class="table-warning"><td class="table-warning">${dig}</td><td class="table-warning">${digTotal} mg</td><td class="table-warning">${dailyTotal} %</td></tr>`)
 				}
-				calories.push(data.hits[i].recipe.calories);
+
+				
+				servings.push(data.hits[i].recipe.yield);
+				calories.push(data.hits[i].recipe.calories.toFixed(0) / data.hits[i].recipe.yield);
 				weights.push(data.hits[i].recipe.totalWeight);
 				cookTimes.push(data.hits[i].recipe.totalTime);
 				instructions.push(data.hits[i].recipe.url);
+				imageURL.push(data.hits[i].recipe.image);
+				labelList.push(data.hits[i].recipe.label);
+				ingredientLength.push(data.hits[i].recipe.ingredientLines.length);
 				digests.push(digestList);
-				ingShowList.push(ingList);
+				ingredientList.push(ingList);
+				dietList.push(dList);
+				healthList.push(hList);
+
 				var card = $('<div style="margin-bottom:20px" class="col-s-12 col-m-6 col-lg-4">');
 
 				var img = $("<img>");
-				imgAPI = data.hits[i].recipe.image;
-				img.attr("src", imgAPI);
+				// imgAPI = data.hits[i].recipe.image;
+				img.attr("src", imageURL);
 				card.append(img);
 
 				title = data.hits[i].recipe.label;
@@ -67,31 +119,72 @@ function doAjax(queryURL) {
 				
 
 			};
+
 			$('.recipeList').append(flex);
+			
 		});
 };
 
 $(document).on('click', '.addVids', function () {
-	$('.article').empty();
-	$('.article').append(`<button type="button" class="btn btn-primary back">Back</button>`);
+	// $('.article').empty();
+	// $('.article').append(`<button type="button" class="btn btn-primary back">Back</button>`);
+
+	var topRow = $('<div class = "row">');
+	var imageDiv = $('<div class = "col-md-4">')
+	var img = $("<img>");
+			img.attr("src", imageURL[parseInt($(this).attr('data-content'))]);
+	imageDiv.html(img);
+	var titleDiv = $('<div class = "col-md-8">')
+	titleDiv.html(`<h2>${labelList[parseInt($(this).attr('data-content'))]}</h2>`);
+	titleDiv.append(`<a target="_blank" href="${instructions[$(this).attr('data-content')]}"><h3>See full recipe here</h3>`)
+	topRow.append(imageDiv).append(titleDiv);
+	$('.article').append(topRow);
 	$('.article').append('<hr>');
-	$('.article').append('<h2>Ingredients</h2>');
-	$('.article').append(ingShowList[parseInt($(this).attr('data-content'))]);
+
+	var secondRow = $('<div class = "row">');
+	var ingDiv = $('<div class = "col-md-6">');
+	// $('.article').append('<h2>Ingredients</h2>');
+	$(ingDiv).append(`<h4>${ingredientLength[parseInt($(this).attr('data-content'))]} Ingredients</h4>`);
+	$(ingDiv).append(ingredientList[parseInt($(this).attr('data-content'))]);
+
+	var nutrDiv = $('<div class = "col-md-6">');
+	var nutrRow = $('<div class = "row">')
+	var calDiv = $('<div class = "col-md-6">');
+	var servDiv = $('<div class = "col-md-6">');
+	calDiv.append(`<h4>Calories (per Serving)</h4>`)
+				.append(calories[parseInt($(this).attr('data-content'))]);
+	servDiv.append(`<h4>Servings</h4>`)
+				 .append(servings[parseInt($(this).attr('data-content'))]);
+	nutrRow.append(calDiv).append(servDiv);
+	nutrDiv.append(nutrRow);
+
+	nutrDiv.append("<br>")
+				 .append(`<h4>Diet</h4>`)
+				 .append(dietList[parseInt($(this).attr('data-content'))])
+				 .append("<br>");
+	nutrDiv.append(`<h4>Health</h4>`)
+				 .append(healthList[parseInt($(this).attr('data-content'))]);
+
+	secondRow.append(ingDiv).append(nutrDiv);
+
+	$('.article').append(secondRow);
 	$('.article').append('<hr>');
 	$('.article').append('<h2>Nutrition</h2>');
 	$('.article').append(digests[parseInt($(this).attr('data-content'))]);
-	$('.article').append('<hr>');
-	$('.article').append('<h2>Calories</h2>');
-	$('.article').append(`<h3>${calories[$(this).attr('data-content')]}</h3>`);
-	$('.article').append('<hr>');
-	$('.article').append('<h2>Weight</h2>');
-	$('.article').append(`<h3>${weights[$(this).attr('data-content')]}</h3>`);
-	$('.article').append('<hr>');
-	$('.article').append('<h2>Cook Time</h2>');
-	$('.article').append(`<h3>${cookTimes[$(this).attr('data-content')]} /minutes</h3>`);
-	$('.article').append('<hr>');
-	$('.article').append('<h2>Instructions</h2>');
-	$('.article').append(`<a target="_blank" href="${instructions[$(this).attr('data-content')]}"><h3>Click here to see instructions</h3>`);
+
+	// $('.article').append('<hr>');
+	// $('.article').append('<h2>Calories</h2>');
+	// $('.article').append(`<h3>${calories[$(this).attr('data-content')]}</h3>`);
+	// $('.article').append('<hr>');
+	// $('.article').append('<h2>Weight</h2>');
+	// $('.article').append(`<h3>${weights[$(this).attr('data-content')]}</h3>`);
+	// $('.article').append('<hr>');
+	// $('.article').append('<h2>Cook Time</h2>');
+	// $('.article').append(`<h3>${cookTimes[$(this).attr('data-content')]} /minutes</h3>`);
+	// $('.article').append('<hr>');
+	// $('.article').append('<h2>Instructions</h2>');
+	// $('.article').append(`<a target="_blank" href="${instructions[$(this).attr('data-content')]}"><h3>Click here to see instructions</h3>`);
+
 	
 });
 

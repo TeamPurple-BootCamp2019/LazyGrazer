@@ -17,7 +17,7 @@
 .view{
     width: 100%;
 }
-.RecepiContainer{
+.RecipeContainer{
     margin-bottom: 25px;
 }
 .flex-container {
@@ -40,9 +40,11 @@
 .videoContainer{
     margin-bottom: 25px;
 }
-.table{
+.table-condensed{
     margin-top: 20px;
+    width: 100%;
 }
+
 
 /* sidebar */
 .sidenav {
@@ -73,3 +75,4 @@
     font-family: 'Englebert', sans-serif;
     font-size: 30px;
 }
+
