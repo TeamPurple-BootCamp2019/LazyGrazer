@@ -40,7 +40,10 @@
 .videoContainer{
     margin-bottom: 25px;
 }
-.table{
+.table-condensed{
     margin-top: 20px;
+    width: 100%;
 }
+
+    
 
