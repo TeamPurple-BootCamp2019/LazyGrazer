@@ -20,6 +20,19 @@ function doAjax(queryURL) {
 		.then((resp) => resp.json())
 		.then(function (data) {
 			console.log(data);
+			 
+			 ingredientList = [];
+			 ingredientLength = [];
+			 dietList = [];
+			 healthList = [];
+			 digests = [];
+			 calories = [];
+			 servings = [];
+			 weights = [];
+			 cookTimes = [];
+			 instructions = [];
+			 imageURL = [];
+			 labelList = [];
 
 			var flex = $('<div class="row">');
 		
@@ -82,14 +95,21 @@ function doAjax(queryURL) {
 
 				for (var j = 0; j < data.hits[i].recipe.digest.length; j++) {
 					var dig = data.hits[i].recipe.digest[j].label;
-					var digTotal = data.hits[i].recipe.digest[j].total.toFixed(0) / data.hits[i].recipe.yield;
-					var dailyTotal = data.hits[i].recipe.digest[j].daily.toFixed(0) / data.hits[i].recipe.yield;
+
+					var digTotal = data.hits[i].recipe.digest[j].total / data.hits[i].recipe.yield;
+					digTotal = digTotal.toFixed(0);
+
+					var dailyTotal = data.hits[i].recipe.digest[j].daily/ data.hits[i].recipe.yield;
+					dailyTotal = dailyTotal.toFixed(0);
+
 					digestList.append(`<tr class="table-warning"><td class="table-warning">${dig}</td><td class="table-warning">${digTotal} mg</td><td class="table-warning">${dailyTotal} %</td></tr>`)
 				}
 
 				
 				servings.push(data.hits[i].recipe.yield);
-				calories.push(data.hits[i].recipe.calories.toFixed(0) / data.hits[i].recipe.yield);
+
+				var caloriesFixed = data.hits[i].recipe.calories / data.hits[i].recipe.yield
+				calories.push(caloriesFixed.toFixed(0));
 				weights.push(data.hits[i].recipe.totalWeight);
 				cookTimes.push(data.hits[i].recipe.totalTime);
 				instructions.push(data.hits[i].recipe.url);
@@ -120,23 +140,23 @@ function doAjax(queryURL) {
 
 			};
 
-			$('.recipeList').append(flex);
+			$('.recipeList').html(flex);
 			
 		});
 };
 
 $(document).on('click', '.addVids', function () {
-	// $('.article').empty();
+	$('.article').empty();
 	// $('.article').append(`<button type="button" class="btn btn-primary back">Back</button>`);
 
-	var topRow = $('<div class = "row">');
+	var topRow = $('<div class = "row" id = "recipe-top-row">');
 	var imageDiv = $('<div class = "col-md-4">')
-	var img = $("<img>");
+	var img = $('<img class = "img-fluid img-thumbnail">');
 			img.attr("src", imageURL[parseInt($(this).attr('data-content'))]);
 	imageDiv.html(img);
 	var titleDiv = $('<div class = "col-md-8">')
-	titleDiv.html(`<h2>${labelList[parseInt($(this).attr('data-content'))]}</h2>`);
-	titleDiv.append(`<a target="_blank" href="${instructions[$(this).attr('data-content')]}"><h3>See full recipe here</h3>`)
+	titleDiv.html(`<h2 class = "display-4">${labelList[parseInt($(this).attr('data-content'))]}</h2>`);
+	titleDiv.append(`<a target="_blank" href="${instructions[$(this).attr('data-content')]}"><h4>Click here to see full recipe here</h4>`)
 	topRow.append(imageDiv).append(titleDiv);
 	$('.article').append(topRow);
 	$('.article').append('<hr>');
@@ -189,6 +209,8 @@ $(document).on('click', '.addVids', function () {
 });
 
 $(".addRecipe").on("click", function (e) {
+	$(".recipeList").show();
+	$(".recipeInfo").hide();
 	$("#recipe-list").empty();
 	e.preventDefault();
 
