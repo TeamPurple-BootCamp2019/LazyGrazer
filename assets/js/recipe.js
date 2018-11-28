@@ -26,6 +26,7 @@ function doAjax(queryURL) {
 
 			for (var i = 0; i < 13; i++) {
 
+
 				// var ingList = $(`<table class="table">
 				// 						<thead class="thead-dark">
 				// 						<tr>
@@ -46,6 +47,7 @@ function doAjax(queryURL) {
 									<th scope="col">Nutrition facts</th>
 									<th scope="col">Total (per serving)</th>
 									<th scope="col">Daily %</th>
+
 								</tr>
 								</thead>
 								<tbody>`
@@ -169,6 +171,7 @@ $(document).on('click', '.addVids', function () {
 	$('.article').append('<hr>');
 	$('.article').append('<h2>Nutrition</h2>');
 	$('.article').append(digests[parseInt($(this).attr('data-content'))]);
+
 	// $('.article').append('<hr>');
 	// $('.article').append('<h2>Calories</h2>');
 	// $('.article').append(`<h3>${calories[$(this).attr('data-content')]}</h3>`);
@@ -181,6 +184,7 @@ $(document).on('click', '.addVids', function () {
 	// $('.article').append('<hr>');
 	// $('.article').append('<h2>Instructions</h2>');
 	// $('.article').append(`<a target="_blank" href="${instructions[$(this).attr('data-content')]}"><h3>Click here to see instructions</h3>`);
+
 	
 });
 
