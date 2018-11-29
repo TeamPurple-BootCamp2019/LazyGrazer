@@ -1,4 +1,4 @@
-$(".recipeInfo").hide();
+
 
 var queryURLbase = "https://api.edamam.com/search?&app_id=192e6853&app_key=97cc74f29550dbca8f09e9ac463a150f&from=0&to=12&q=";
 var ingShowList = [];
@@ -147,9 +147,7 @@ function doAjax(queryURL) {
 
 $(document).on('click', '.addVids', function () {
 	$('.article').empty();
-	
-	$('.article').append(`<button type="button" class="btn btn-primary back">Back</button>`);
-	$('.article').append('<hr>');
+	// $('.article').append(`<button type="button" class="btn btn-primary back">Back</button>`);
 
 	var topRow = $('<div class = "row" id = "recipe-top-row">');
 	var imageDiv = $('<div class = "col-md-4">')
@@ -158,7 +156,7 @@ $(document).on('click', '.addVids', function () {
 	imageDiv.html(img);
 	var titleDiv = $('<div class = "col-md-8">')
 	titleDiv.html(`<h2 class = "display-4">${labelList[parseInt($(this).attr('data-content'))]}</h2>`);
-	titleDiv.append(`<a target="_blank" href="${instructions[$(this).attr('data-content')]}"><h4>Click here to see full recipe</h4>`)
+	titleDiv.append(`<a target="_blank" href="${instructions[$(this).attr('data-content')]}"><h4>Click here to see full recipe here</h4>`)
 	topRow.append(imageDiv).append(titleDiv);
 	$('.article').append(topRow);
 	$('.article').append('<hr>');
@@ -223,6 +221,7 @@ $(document).on('click', '.addVids', function () {
 	$('.article').append(secondRow);
 	$('.article').append('<hr>');
 	$('.article').append('<h2>Nutrition</h2>');
+	$('.article').append('<div id = "plot">');
 	$('.article').append(digests[parseInt($(this).attr('data-content'))]);
 
 });
@@ -239,4 +238,3 @@ $(".addRecipe").on("click", function (e) {
 	doAjax(searchURL);
 	$("#targetRecipe").val("");
 });
-

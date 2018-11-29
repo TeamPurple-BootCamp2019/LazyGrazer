@@ -21,10 +21,6 @@ a:focus {
     transition: all 0.3s;
 }
 
-.card{
-    margin-top: 10px;
-}
-
 .navbar {
     padding: 15px 10px;
     background:rgb(255,193,7);
@@ -133,6 +129,11 @@ ul.CTAs a {
 a.download {
     background: #fff;
     color: #7386D5;
+}
+
+#plot {
+    width: 400px;
+    height: 400px;
 }
 
 
