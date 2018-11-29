@@ -237,3 +237,12 @@ $(".addRecipe").on("click", function (e) {
 	doAjax(searchURL);
 	$("#targetRecipe").val("");
 });
+
+//Toggle
+<script type="text/javascript">
+$(document).ready(function () {
+	$('#sidebarCollapse').on('click', function () {
+		$('#sidebar').toggleClass('active');
+	});
+});
+</script>
