@@ -21,6 +21,10 @@ a:focus {
     transition: all 0.3s;
 }
 
+.card{
+    margin-top: 10px;
+}
+
 .navbar {
     padding: 15px 10px;
     background:rgb(255,193,7);
