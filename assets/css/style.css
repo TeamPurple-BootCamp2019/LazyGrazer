@@ -20,7 +20,7 @@
 .view{
     width: 100%;
 }
-.RecepiContainer{
+.RecipeContainer{
     margin-bottom: 25px;
 }
 .flex-container {
@@ -43,9 +43,15 @@
 .videoContainer{
     margin-bottom: 25px;
 }
-.table{
+.table-condensed{
+    margin-top: 20px;
+    width: 100%;
+}
+
+#recipe-top-row{
     margin-top: 20px;
 } */ */
+
 
 
 
@@ -102,6 +108,7 @@ a[aria-expanded="true"] {
 
 }
 
+
 a[data-toggle="collapse"] {
     position: relative;
 }
@@ -120,4 +127,5 @@ a[data-toggle="collapse"] {
         font-family: 'Englebert', sans-serif;
         font-size: 30px;
 }
+
 
