@@ -34,21 +34,10 @@ function doAjax(queryURL) {
 			 imageURL = [];
 			 labelList = [];
 
-			var flex = $('<div class="row">');
+			var flex = $('<div class="main_portfolio_content">');
 		
 
 			for (var i = 0; i < 12; i++) {
-
-
-				// var ingList = $(`<table class="table">
-				// 						<thead class="thead-dark">
-				// 						<tr>
-				// 							<th scope="col">Ingredient</th>
-				// 							<th scope="col">Weight(ounce)</th>
-				// 						</tr>
-				// 						</thead>
-				// 						<tbody>`
-				// 				);
 
 				var ingList = [];
 				var dList = [];
@@ -66,17 +55,10 @@ function doAjax(queryURL) {
 								<tbody>`
 						);
 
-				// for (var j = 0; j < data.hits[i].recipe.ingredients.length; j++) {
-				// 	var ing = data.hits[i].recipe.ingredients[j].text;
-				// 	var ingweight = data.hits[i].recipe.ingredients[j].weight;
-				// 	ingList.append(`<tr class="table-warning"><td class="table-warning">${ing}</td><td class="table-warning">${ingweight}</td></tr>`)
-				// }
-
 				for (var j = 0; j < data.hits[i].recipe.ingredientLines.length; j++) {
 					var ing = data.hits[i].recipe.ingredientLines[j];
 					
 					ingList.push(`<li>${ing}</li>`)
-					// console.log(ingList)
 				}
 
 				for (var j = 0; j < data.hits[i].recipe.dietLabels.length; j++) {
@@ -121,20 +103,19 @@ function doAjax(queryURL) {
 				dietList.push(dList);
 				healthList.push(hList);
 
-				var card = $('<div style="margin-bottom:20px" class="col-s-12 col-m-6 col-lg-4">');
+				var card = $('<div class="col-md-3 col-sm-4 col-xs-6 single_portfolio_text">');
 
 				var img = $("<img>");
-				// imgAPI = data.hits[i].recipe.image;
+				var txtdiv = $('<div class="portfolio_images_overlay text-center">');
+				var tit = $('<h6>')
+				title = data.hits[i].recipe.label;
+				var redBtn = $(`<a data-content='${i}' link-data='${title}' class="btn btn-primary addVids">Click here</a>`);
 				img.attr("src", imageURL);
 				card.append(img);
-
-				title = data.hits[i].recipe.label;
-
-				var link = $(`<a  data-content=${i} href="#" style="text-decoration:none;" class="addVids">`);
-				var span = $('<span class="badge badge-pill badge-dark" style="margin-top:10px;">');
-				span.text(title);
-				link.append(span);
-				card.append(link);
+				tit.text(title);
+				txtdiv.append(tit);
+				txtdiv.append(redBtn);
+				card.append(txtdiv);
 				flex.append(card);
 				
 
@@ -153,7 +134,7 @@ $(document).on('click', '.addVids', function () {
 	var topRow = $('<div class = "row" id = "recipe-top-row">');
 	var imageDiv = $('<div class = "col-md-4">')
 	var img = $('<img class = "img-fluid img-thumbnail">');
-			img.attr("src", imageURL[parseInt($(this).attr('data-content'))]);
+	img.attr("src", imageURL[parseInt($(this).attr('data-content'))]);
 	imageDiv.html(img);
 	var titleDiv = $('<div class = "col-md-8">')
 	titleDiv.html(`<h2 class = "display-4">${labelList[parseInt($(this).attr('data-content'))]}</h2>`);
@@ -167,7 +148,6 @@ $(document).on('click', '.addVids', function () {
 	var ingCard = $('<div class="card">');
 	var ingCardHeader = $('<div class = "card-header">');
 	var ingCardBody =  $('<div class = "card-body">')
-	// $('.article').append('<h2>Ingredients</h2>');
 	$(ingCardHeader).html(`<h5>${ingredientLength[parseInt($(this).attr('data-content'))]} Ingredients</h5>`);
 	$(ingCardBody).html(ingredientList[parseInt($(this).attr('data-content'))]);
 	$(ingCard).html(ingCardHeader).append(ingCardBody);
@@ -229,7 +209,6 @@ $(document).on('click', '.addVids', function () {
 
 $(".addRecipe").on("click", function (e) {
 	
-	
 	userInput = $("#targetRecipe").val().trim().toLowerCase();
 
 	if (userInput){
@@ -247,6 +226,5 @@ $(".addRecipe").on("click", function (e) {
 		$("#val-text").append("You gotta add some ingredients, bro!");
 	};
 
-	
 
 });
