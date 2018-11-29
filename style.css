@@ -59,6 +59,10 @@ text-align: left;
     align-items: stretch;
 }
 
+#val-text {
+    color: red;
+}
+
 #sidebar {
     min-width: 250px;
     max-width: 250px;
@@ -133,6 +137,11 @@ ul.CTAs a {
 a.download {
     background: #fff;
     color: #7386D5;
+}
+
+#plot {
+    width: 400px;
+    height: 400px;
 }
 
 
