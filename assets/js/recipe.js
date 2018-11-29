@@ -7,6 +7,7 @@ var ingredientLength = [];
 var dietList = [];
 var healthList = [];
 var digests = [];
+var digestValues = [];
 var calories = [];
 var servings = [];
 var weights = [];
@@ -93,8 +94,11 @@ function doAjax(queryURL) {
 					
 				}
 
+				digestValues[i] = {};
+
 				for (var j = 0; j < data.hits[i].recipe.digest.length; j++) {
 					var dig = data.hits[i].recipe.digest[j].label;
+					let unit = data.hits[i].recipe.digest[j].unit;
 
 					var digTotal = data.hits[i].recipe.digest[j].total / data.hits[i].recipe.yield;
 					digTotal = digTotal.toFixed(0);
@@ -102,7 +106,12 @@ function doAjax(queryURL) {
 					var dailyTotal = data.hits[i].recipe.digest[j].daily/ data.hits[i].recipe.yield;
 					dailyTotal = dailyTotal.toFixed(0);
 
-					digestList.append(`<tr class="table-warning"><td class="table-warning">${dig}</td><td class="table-warning">${digTotal} mg</td><td class="table-warning">${dailyTotal} %</td></tr>`)
+					digestValues[i][dig] = {
+						digTotal,
+						dailyTotal
+					};
+
+					digestList.append(`<tr class="table-warning"><td class="table-warning">${dig}</td><td class="table-warning">${digTotal} ${unit}</td><td class="table-warning">${dailyTotal} %</td></tr>`)
 				}
 
 				
@@ -221,7 +230,22 @@ $(document).on('click', '.addVids', function () {
 	$('.article').append(secondRow);
 	$('.article').append('<hr>');
 	$('.article').append('<h2>Nutrition</h2>');
-	$('.article').append('<div id = "plot">');
+	
+	$('.article').append('<div id = "plot">');	
+	
+	let thisDigests = digestValues[parseInt($(this).attr('data-content'))];
+
+	console.log(thisDigests);
+
+	createNutritionChart(
+		document.getElementById('plot'), 
+		{
+			Carbs: thisDigests["Carbs"].dailyTotal,
+			Protein: thisDigests["Protein"].dailyTotal,
+			fat: thisDigests["Fat"].dailyTotal,
+		}
+	);
+
 	$('.article').append(digests[parseInt($(this).attr('data-content'))]);
 
 });
