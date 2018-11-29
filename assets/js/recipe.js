@@ -147,7 +147,9 @@ function doAjax(queryURL) {
 
 $(document).on('click', '.addVids', function () {
 	$('.article').empty();
-	// $('.article').append(`<button type="button" class="btn btn-primary back">Back</button>`);
+	
+	$('.article').append(`<button type="button" class="btn btn-primary back">Back</button>`);
+	$('.article').append('<hr>');
 
 	var topRow = $('<div class = "row" id = "recipe-top-row">');
 	var imageDiv = $('<div class = "col-md-4">')
@@ -156,7 +158,7 @@ $(document).on('click', '.addVids', function () {
 	imageDiv.html(img);
 	var titleDiv = $('<div class = "col-md-8">')
 	titleDiv.html(`<h2 class = "display-4">${labelList[parseInt($(this).attr('data-content'))]}</h2>`);
-	titleDiv.append(`<a target="_blank" href="${instructions[$(this).attr('data-content')]}"><h4>Click here to see full recipe here</h4>`)
+	titleDiv.append(`<a target="_blank" href="${instructions[$(this).attr('data-content')]}"><h4>Click here to see full recipe</h4>`)
 	topRow.append(imageDiv).append(titleDiv);
 	$('.article').append(topRow);
 	$('.article').append('<hr>');
