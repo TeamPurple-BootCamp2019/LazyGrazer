@@ -55,6 +55,10 @@ text-align: left;
     align-items: stretch;
 }
 
+#val-text {
+    color: red;
+}
+
 #sidebar {
     min-width: 250px;
     max-width: 250px;

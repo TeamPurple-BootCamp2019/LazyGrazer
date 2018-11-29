@@ -211,7 +211,7 @@ $(document).on('click', '.addVids', function () {
 	var healthCardHeader = $('<div class = "card-header">');
 	var healthCardBody =  $('<div class = "card-body">')
 	
-	$(healthCardHeader).append(`<h4>Health</h4>`);
+	$(healthCardHeader).append(`<h5>Health</h5>`);
 	$(healthCardBody).append(healthList[parseInt($(this).attr('data-content'))]);
 	$(healthCard).html(healthCardHeader).append(healthCardBody);
 	nutrDiv.append(healthCard)
@@ -227,14 +227,25 @@ $(document).on('click', '.addVids', function () {
 });
 
 $(".addRecipe").on("click", function (e) {
-	$(".recipeList").show();
-	$(".recipeInfo").hide();
-	$("#recipe-list").empty();
-	e.preventDefault();
-
+	
+	
 	userInput = $("#targetRecipe").val().trim().toLowerCase();
 
-	var searchURL = queryURLbase + userInput;
-	doAjax(searchURL);
-	$("#targetRecipe").val("");
+	if (userInput){
+		$("#val-text").empty();
+	
+		$(".recipeList").show();
+		$(".recipeInfo").hide();
+		$("#recipe-list").empty();
+		e.preventDefault();
+		
+		var searchURL = queryURLbase + userInput;
+		doAjax(searchURL);
+		$("#targetRecipe").val("");
+	} else {
+		$("#val-text").append("You gotta add some ingredients, bro!");
+	};
+
+	
+
 });
