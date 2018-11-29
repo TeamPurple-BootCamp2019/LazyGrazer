@@ -1,6 +1,6 @@
 
 
-var queryURLbase = "https://api.edamam.com/search?&app_id=192e6853&app_key=97cc74f29550dbca8f09e9ac463a150f&from=0&to=13&q=";
+var queryURLbase = "https://api.edamam.com/search?&app_id=192e6853&app_key=97cc74f29550dbca8f09e9ac463a150f&from=0&to=12&q=";
 var ingShowList = [];
 var ingredientList = [];
 var ingredientLength = [];
@@ -37,7 +37,7 @@ function doAjax(queryURL) {
 			var flex = $('<div class="row">');
 		
 
-			for (var i = 0; i < 13; i++) {
+			for (var i = 0; i < 12; i++) {
 
 
 				// var ingList = $(`<table class="table">
@@ -163,27 +163,58 @@ $(document).on('click', '.addVids', function () {
 
 	var secondRow = $('<div class = "row">');
 	var ingDiv = $('<div class = "col-md-6">');
+	var ingCard = $('<div class="card">');
+	var ingCardHeader = $('<div class = "card-header">');
+	var ingCardBody =  $('<div class = "card-body">')
 	// $('.article').append('<h2>Ingredients</h2>');
-	$(ingDiv).append(`<h4>${ingredientLength[parseInt($(this).attr('data-content'))]} Ingredients</h4>`);
-	$(ingDiv).append(ingredientList[parseInt($(this).attr('data-content'))]);
+	$(ingCardHeader).html(`<h5>${ingredientLength[parseInt($(this).attr('data-content'))]} Ingredients</h5>`);
+	$(ingCardBody).html(ingredientList[parseInt($(this).attr('data-content'))]);
+	$(ingCard).html(ingCardHeader).append(ingCardBody);
+	$(ingDiv).html(ingCard);
 
 	var nutrDiv = $('<div class = "col-md-6">');
-	var nutrRow = $('<div class = "row">')
+	var nutrRow = $('<div class = "row">');
 	var calDiv = $('<div class = "col-md-6">');
 	var servDiv = $('<div class = "col-md-6">');
-	calDiv.append(`<h4>Calories (per Serving)</h4>`)
-				.append(calories[parseInt($(this).attr('data-content'))]);
-	servDiv.append(`<h4>Servings</h4>`)
-				 .append(servings[parseInt($(this).attr('data-content'))]);
+
+	var calCard = $('<div class="card">');
+	var calCardHeader = $('<div class = "card-header">');
+	var calCardBody =  $('<div class = "card-body">')
+
+	$(calCardHeader).html(`<h5>Calories (per Serving)</h5>`);
+	$(calCardBody).html(calories[parseInt($(this).attr('data-content'))]);
+	$(calCard).html(calCardHeader).append(calCardBody);
+	$(calDiv).html(calCard);
+
+	var servCard = $('<div class="card">');
+	var servCardHeader = $('<div class = "card-header">');
+	var servCardBody =  $('<div class = "card-body">')
+
+	$(servCardHeader).html(`<h5>Servings</h5>`);
+	$(servCardBody).append(servings[parseInt($(this).attr('data-content'))]);
+	$(servCard).html(servCardHeader).append(servCardBody);
+	$(servDiv).html(servCard);
+
+	var dietCard = $('<div class="card">');
+	var dietCardHeader = $('<div class = "card-header">');
+	var dietCardBody =  $('<div class = "card-body">')
+
 	nutrRow.append(calDiv).append(servDiv);
 	nutrDiv.append(nutrRow);
 
-	nutrDiv.append("<br>")
-				 .append(`<h4>Diet</h4>`)
-				 .append(dietList[parseInt($(this).attr('data-content'))])
-				 .append("<br>");
-	nutrDiv.append(`<h4>Health</h4>`)
-				 .append(healthList[parseInt($(this).attr('data-content'))]);
+	$(dietCardHeader).append(`<h5>Diet</h5>`);
+	$(dietCardBody).append(dietList[parseInt($(this).attr('data-content'))]);
+	$(dietCard).html(dietCardHeader).append(dietCardBody);
+	nutrDiv.append(dietCard);
+
+	var healthCard = $('<div class="card">');
+	var healthCardHeader = $('<div class = "card-header">');
+	var healthCardBody =  $('<div class = "card-body">')
+	
+	$(healthCardHeader).append(`<h4>Health</h4>`);
+	$(healthCardBody).append(healthList[parseInt($(this).attr('data-content'))]);
+	$(healthCard).html(healthCardHeader).append(healthCardBody);
+	nutrDiv.append(healthCard)
 
 	secondRow.append(ingDiv).append(nutrDiv);
 
@@ -192,20 +223,6 @@ $(document).on('click', '.addVids', function () {
 	$('.article').append('<h2>Nutrition</h2>');
 	$('.article').append(digests[parseInt($(this).attr('data-content'))]);
 
-	// $('.article').append('<hr>');
-	// $('.article').append('<h2>Calories</h2>');
-	// $('.article').append(`<h3>${calories[$(this).attr('data-content')]}</h3>`);
-	// $('.article').append('<hr>');
-	// $('.article').append('<h2>Weight</h2>');
-	// $('.article').append(`<h3>${weights[$(this).attr('data-content')]}</h3>`);
-	// $('.article').append('<hr>');
-	// $('.article').append('<h2>Cook Time</h2>');
-	// $('.article').append(`<h3>${cookTimes[$(this).attr('data-content')]} /minutes</h3>`);
-	// $('.article').append('<hr>');
-	// $('.article').append('<h2>Instructions</h2>');
-	// $('.article').append(`<a target="_blank" href="${instructions[$(this).attr('data-content')]}"><h3>Click here to see instructions</h3>`);
-
-	
 });
 
 $(".addRecipe").on("click", function (e) {
