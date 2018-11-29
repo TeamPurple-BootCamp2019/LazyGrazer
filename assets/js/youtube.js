@@ -31,6 +31,7 @@ $(document).on('click','.addVids',function() {
     
     $('.vids').append(`<button type="button" class="btn btn-primary back">Back</button>`);    
     var query = encodeURIComponent($(this).text()).replace(/%20/g, "+");
+    debugger
     var request = gapi.client.youtube.search.list({
         part: 'snippet',
         q:query,
