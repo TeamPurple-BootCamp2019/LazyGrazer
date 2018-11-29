@@ -1,4 +1,4 @@
-
+$(".recipeInfo").hide();
 
 var queryURLbase = "https://api.edamam.com/search?&app_id=192e6853&app_key=97cc74f29550dbca8f09e9ac463a150f&from=0&to=12&q=";
 var ingShowList = [];
@@ -238,11 +238,3 @@ $(".addRecipe").on("click", function (e) {
 	$("#targetRecipe").val("");
 });
 
-//Toggle
-<script type="text/javascript">
-$(document).ready(function () {
-	$('#sidebarCollapse').on('click', function () {
-		$('#sidebar').toggleClass('active');
-	});
-});
-</script>
