@@ -140,6 +140,7 @@ $(document).on('click', '.addVids', function () {
 	$('.article').append(`<button type="button" class="btn btn-primary back">Back</button>`);
 	$('.article').append('<hr>');
 
+	//Top Row - Image/Title/Link to Recipe Site
 	var topRow = $('<div class = "row" id = "recipe-top-row">');
 	var imageDiv = $('<div class = "col-md-4">')
 	var img = $('<img class = "img-fluid img-thumbnail">');
@@ -152,6 +153,7 @@ $(document).on('click', '.addVids', function () {
 	$('.article').append(topRow);
 	$('.article').append('<hr>');
 
+	//Second Row - Ingredients/Calories/Servings/Diet/Health
 	var secondRow = $('<div class = "row">');
 	var ingDiv = $('<div class = "col-md-6">');
 	var ingCard = $('<div class="card">');
@@ -207,12 +209,38 @@ $(document).on('click', '.addVids', function () {
 	nutrDiv.append(healthCard)
 
 	secondRow.append(ingDiv).append(nutrDiv);
-
 	$('.article').append(secondRow);
 	$('.article').append('<hr>');
-	$('.article').append('<h2>Nutrition</h2>');
+
+	var thirdRow = $('<div class = "row">');
 	
-	$('.article').append('<div id = "plot">');	
+	// $('.article').append('<h2>Nutrition</h2>');
+	var tableDiv = $('<div class = "col-md-6">');
+	var tableCard = $('<div class="card">');
+	var tableCardHeader = $('<div class = "card-header">');
+	var tableCardBody =  $('<div class = "card-body" id = "plot-card-body">');
+
+	$(tableCardHeader).append(`<h5>Nutrition Facts</h5>`);
+	$(tableCardBody).append(digests[parseInt($(this).attr('data-content'))]);
+	$(tableCard).append(tableCardHeader).append(tableCardBody);
+	$(tableDiv).append(tableCard);
+	
+
+	var plotDiv = $('<div class = "col-md-6">');
+	var plotCard = $('<div class="card">');
+	var plotCardHeader = $('<div class = "card-header"><h5>Nutrition Graph</h5></div>');
+	var plotCardBody =  $('<div class = "card-body" id = "plot-card-body">')
+	var plotGraph = $('<div id = "plot">')
+
+	$(plotCardHeader).html(`<h5>Nutrition Graph</h5>`);
+	$(plotCard).append(plotCardHeader).append(plotCardBody);
+	$(plotCardBody).append(plotGraph);
+	$(plotDiv).append(plotCard);
+
+
+	thirdRow.append(tableDiv).append(plotDiv);
+	$('.article').append(thirdRow);
+	
 	
 	let thisDigests = digestValues[parseInt($(this).attr('data-content'))];
 
@@ -223,11 +251,9 @@ $(document).on('click', '.addVids', function () {
 		{
 			Carbs: thisDigests["Carbs"].dailyTotal,
 			Protein: thisDigests["Protein"].dailyTotal,
-			fat: thisDigests["Fat"].dailyTotal,
+			Fat: thisDigests["Fat"].dailyTotal,
 		}
 	);
-
-	$('.article').append(digests[parseInt($(this).attr('data-content'))]);
 
 });
 
