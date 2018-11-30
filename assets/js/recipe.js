@@ -126,8 +126,6 @@ function doAjax(queryURL) {
 				txtdiv.append(redBtn);
 				card.append(txtdiv);
 				flex.append(card);
-				
-
 			};
 
 			$('.recipeList').html(flex);
