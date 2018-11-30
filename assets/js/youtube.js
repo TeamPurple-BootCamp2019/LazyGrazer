@@ -9,9 +9,9 @@ function arrayOfEl(display,objects){
       return res
     }
 function displayVideo(){
-    var display = `<div style="margin:15px auto" class="videoContainer">
+    var display = `<div class="videoContainer">
     <h2>{{video}}</h2>
-    <iframe  width="100%" height="400" src="//www.youtube.com/embed/{{videoId}}" frameborder="0" allowfullscreen>
+    <iframe class="rs view" width="640" height="360" src="//www.youtube.com/embed/{{videoId}}" frameborder="0" allowfullscreen>
     </iframe></div>`;
     return display;
 
