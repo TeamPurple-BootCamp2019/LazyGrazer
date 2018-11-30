@@ -128,7 +128,13 @@ a[data-toggle="collapse"] {
         font-size: 30px;
 }
 
-*/
+
+#plot {
+  width: 400px;
+  height: 400px;
+  background-color: white;
+}
+
 
 
 html,

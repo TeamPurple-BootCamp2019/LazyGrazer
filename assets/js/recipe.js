@@ -7,6 +7,7 @@ var ingredientLength = [];
 var dietList = [];
 var healthList = [];
 var digests = [];
+var digestValues = [];
 var calories = [];
 var servings = [];
 var weights = [];
@@ -75,8 +76,11 @@ function doAjax(queryURL) {
 					
 				}
 
+				digestValues[i] = {};
+
 				for (var j = 0; j < data.hits[i].recipe.digest.length; j++) {
 					var dig = data.hits[i].recipe.digest[j].label;
+					let unit = data.hits[i].recipe.digest[j].unit;
 
 					var digTotal = data.hits[i].recipe.digest[j].total / data.hits[i].recipe.yield;
 					digTotal = digTotal.toFixed(0);
@@ -84,7 +88,12 @@ function doAjax(queryURL) {
 					var dailyTotal = data.hits[i].recipe.digest[j].daily/ data.hits[i].recipe.yield;
 					dailyTotal = dailyTotal.toFixed(0);
 
-					digestList.append(`<tr class="table-warning"><td class="table-warning">${dig}</td><td class="table-warning">${digTotal} mg</td><td class="table-warning">${dailyTotal} %</td></tr>`)
+					digestValues[i][dig] = {
+						digTotal,
+						dailyTotal
+					};
+
+					digestList.append(`<tr class="table-warning"><td class="table-warning">${dig}</td><td class="table-warning">${digTotal} ${unit}</td><td class="table-warning">${dailyTotal} %</td></tr>`)
 				}
 
 				
@@ -126,10 +135,10 @@ function doAjax(queryURL) {
 
 $(document).on('click', '.addVids', function () {
 	$('.article').empty();
-	
 	$('.article').append(`<button type="button" class="btn btn-primary back">Back</button>`);
 	$('.article').append('<hr>');
 
+	//Top Row - Image/Title/Link to Recipe Site
 	var topRow = $('<div class = "row" id = "recipe-top-row">');
 	var imageDiv = $('<div class = "col-md-4">')
 	var img = $('<img class = "img-fluid img-thumbnail">');
@@ -142,6 +151,7 @@ $(document).on('click', '.addVids', function () {
 	$('.article').append(topRow);
 	$('.article').append('<hr>');
 
+	//Second Row - Ingredients/Calories/Servings/Diet/Health
 	var secondRow = $('<div class = "row">');
 	var ingDiv = $('<div class = "col-md-6">');
 	var ingCard = $('<div class="card">');
@@ -191,29 +201,78 @@ $(document).on('click', '.addVids', function () {
 	var healthCardHeader = $('<div class = "card-header">');
 	var healthCardBody =  $('<div class = "card-body">')
 	
-	$(healthCardHeader).append(`<h4>Health</h4>`);
+	$(healthCardHeader).append(`<h5>Health</h5>`);
 	$(healthCardBody).append(healthList[parseInt($(this).attr('data-content'))]);
 	$(healthCard).html(healthCardHeader).append(healthCardBody);
 	nutrDiv.append(healthCard)
 
 	secondRow.append(ingDiv).append(nutrDiv);
-
 	$('.article').append(secondRow);
 	$('.article').append('<hr>');
-	$('.article').append('<h2>Nutrition</h2>');
-	$('.article').append(digests[parseInt($(this).attr('data-content'))]);
+
+	var thirdRow = $('<div class = "row">');
+	
+	// $('.article').append('<h2>Nutrition</h2>');
+	var tableDiv = $('<div class = "col-md-6">');
+	var tableCard = $('<div class="card">');
+	var tableCardHeader = $('<div class = "card-header">');
+	var tableCardBody =  $('<div class = "card-body" id = "plot-card-body">');
+
+	$(tableCardHeader).append(`<h5>Nutrition Facts</h5>`);
+	$(tableCardBody).append(digests[parseInt($(this).attr('data-content'))]);
+	$(tableCard).append(tableCardHeader).append(tableCardBody);
+	$(tableDiv).append(tableCard);
+	
+
+	var plotDiv = $('<div class = "col-md-6">');
+	var plotCard = $('<div class="card">');
+	var plotCardHeader = $('<div class = "card-header"><h5>Nutrition Graph</h5></div>');
+	var plotCardBody =  $('<div class = "card-body" id = "plot-card-body">')
+	var plotGraph = $('<div id = "plot">')
+
+	$(plotCardHeader).html(`<h5>Nutrition Graph</h5>`);
+	$(plotCard).append(plotCardHeader).append(plotCardBody);
+	$(plotCardBody).append(plotGraph);
+	$(plotDiv).append(plotCard);
+
+
+	thirdRow.append(tableDiv).append(plotDiv);
+	$('.article').append(thirdRow);
+	
+	
+	let thisDigests = digestValues[parseInt($(this).attr('data-content'))];
+
+	console.log(thisDigests);
+
+	createNutritionChart(
+		document.getElementById('plot'), 
+		{
+			Carbs: thisDigests["Carbs"].dailyTotal,
+			Protein: thisDigests["Protein"].dailyTotal,
+			Fat: thisDigests["Fat"].dailyTotal,
+		}
+	);
 
 });
 
 $(".addRecipe").on("click", function (e) {
-	$(".recipeList").show();
-	$(".recipeInfo").hide();
-	$("#recipe-list").empty();
-	e.preventDefault();
-
+	
 	userInput = $("#targetRecipe").val().trim().toLowerCase();
 
-	var searchURL = queryURLbase + userInput;
-	doAjax(searchURL);
-	$("#targetRecipe").val("");
+	if (userInput){
+		$("#val-text").empty();
+	
+		$(".recipeList").show();
+		$(".recipeInfo").hide();
+		$("#recipe-list").empty();
+		e.preventDefault();
+		
+		var searchURL = queryURLbase + userInput;
+		doAjax(searchURL);
+		$("#targetRecipe").val("");
+	} else {
+		$("#val-text").append("You gotta add some ingredients, bro!");
+	};
+
+
 });
