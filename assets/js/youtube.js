@@ -1,9 +1,9 @@
 
-function arrayOfEl(display,t){
+function arrayOfEl(display,objects){
     res=display;
-    for(var n=0;n<t.length;n++){
-      res=res.replace(/\{\{(.*?)\}\}/g,function(e,r){
-        return t[n][r];
+    for(var i=0;i<objects.length;i++){
+      res=res.replace(/\{\{(.*?)\}\}/g,function(e,item){
+        return objects[i][item];
       })
     }
       return res
@@ -45,7 +45,7 @@ function searchVideos(response) {
 
     var videoResult = response.items;
     $.each(videoResult,function(index,item){
-        $(".vids").append(arrayOfEl(displayVideo(), [{"video":item.snippet.title, "videoId":item.id.videoId}]));
+        $(".vids").append(arrayOfEl(displayVideo(), [{"videoId":item.id.videoId,"video":item.snippet.title}]));
     });
     resetHeight();
     $(window).on('resize',resetHeight);
