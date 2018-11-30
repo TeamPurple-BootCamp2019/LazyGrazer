@@ -47,6 +47,10 @@ a:focus {
     margin: 40px 0;
 }
 
+.table-condensed{
+    width: 100%;
+}
+
 #navTitle {
 text-align: left;
 }
