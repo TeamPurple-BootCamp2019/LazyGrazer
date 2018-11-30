@@ -271,8 +271,11 @@ $(".addRecipe").on("click", function (e) {
 		doAjax(searchURL);
 		$("#targetRecipe").val("");
 	} else {
-		$("#val-text").append("You gotta add some ingredients, bro!");
+		$("#val-text").text("You gotta add some ingredients, bro!");
 	};
 
 
 });
+
+var searchURL = queryURLbase + "cheese, onions, salt";
+		doAjax(searchURL);
