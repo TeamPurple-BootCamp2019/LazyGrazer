@@ -1,3 +1,4 @@
+
 $(document).ready(function(){
 	$('#sidebarCollapse').on('click', function () {
 		$('#sidebar').toggleClass('active');
@@ -68,6 +69,7 @@ $(document).ready(function(){
 						var diet = data.hits[i].recipe.dietLabels[j];
 						
 						dList.push(`<li>${diet}</li>`)
+
 					
 					}
 	
@@ -91,6 +93,7 @@ $(document).ready(function(){
 					}
 	
 					
+
 					servings.push(data.hits[i].recipe.yield);
 	
 					var caloriesFixed = data.hits[i].recipe.calories / data.hits[i].recipe.yield
@@ -209,10 +212,12 @@ $(document).ready(function(){
 	});
 	
 	$(".addRecipe").on("click", function (e) {
+
 		$(".recipeList").show();
 		$(".recipeInfo").hide();
 		$("#recipe-list").empty();
 		e.preventDefault();
+
 	
 		userInput = $("#targetRecipe").val().trim().toLowerCase();
 	
@@ -222,3 +227,4 @@ $(document).ready(function(){
 	});
 	
 })
+
