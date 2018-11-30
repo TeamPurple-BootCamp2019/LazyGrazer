@@ -128,8 +128,87 @@ a[data-toggle="collapse"] {
         font-size: 30px;
 }
 
+
 #plot {
   width: 400px;
   height: 400px;
   background-color: white;
+}
+
+
+
+html,
+body {
+    background-color: #1E2E3B;
+    font-size: 15px;
+    color: #565656;
+    width: 100%;
+    padding: 0;
+    margin-left: 0;
+    margin-right: 0;
+    font-family: 'roboto', sans-serif;
+    font-weight: 300;
+}
+
+
+/* Portfolio Section css */
+.portfolio{
+	width: 100%;
+	overflow: hidden;	
+}
+
+.portfolio_content{
+	padding-bottom:120px;
+	display:inline-block;
+}
+.portfolio .portfolio_content .head_title h3{
+	color:#000000;
+}
+.portfolio .portfolio_content .head_title h4{
+	color:#000000;
+}
+
+.head_title{
+	padding-top:100px;
+	padding-bottom: 50px;
+}
+
+.single_portfolio_text{
+	display:inline-block;
+	padding:0;
+	position:relative;
+	overflow:hidden;
+
+}
+.single_portfolio_text img{
+	width:100%;
+}
+
+.single_portfolio_text:hover .portfolio_images_overlay{
+	top: 28px;
+    left: 14px;
+}
+
+.portfolio_images_overlay{
+	width: 90%;
+    height: 80%;
+    background: rgba(0, 0, 0, .5);
+    padding: 20px;
+    margin: 0 auto;
+    top:-100%;
+    left: 14px;
+    position: absolute;
+	transition:.6s;
+}
+.portfolio_images_overlay h6{
+	text-transform:uppercase;
+	color:#fff;
+	font-size:1.3125rem;
+	line-height:2rem;
+}
+
+.portfolio_images_overlay p.product_price{
+	font-size:2.5725rem;
+	color:#fff;
+	line-height:3rem;
 }

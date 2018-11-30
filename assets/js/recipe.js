@@ -1,4 +1,4 @@
-
+$(".recipeInfo").hide();
 
 var queryURLbase = "https://api.edamam.com/search?&app_id=192e6853&app_key=97cc74f29550dbca8f09e9ac463a150f&from=0&to=12&q=";
 var ingShowList = [];
@@ -35,21 +35,10 @@ function doAjax(queryURL) {
 			 imageURL = [];
 			 labelList = [];
 
-			var flex = $('<div class="row">');
+			var flex = $('<div class="main_portfolio_content">');
 		
 
 			for (var i = 0; i < 12; i++) {
-
-
-				// var ingList = $(`<table class="table">
-				// 						<thead class="thead-dark">
-				// 						<tr>
-				// 							<th scope="col">Ingredient</th>
-				// 							<th scope="col">Weight(ounce)</th>
-				// 						</tr>
-				// 						</thead>
-				// 						<tbody>`
-				// 				);
 
 				var ingList = [];
 				var dList = [];
@@ -67,17 +56,10 @@ function doAjax(queryURL) {
 								<tbody>`
 						);
 
-				// for (var j = 0; j < data.hits[i].recipe.ingredients.length; j++) {
-				// 	var ing = data.hits[i].recipe.ingredients[j].text;
-				// 	var ingweight = data.hits[i].recipe.ingredients[j].weight;
-				// 	ingList.append(`<tr class="table-warning"><td class="table-warning">${ing}</td><td class="table-warning">${ingweight}</td></tr>`)
-				// }
-
 				for (var j = 0; j < data.hits[i].recipe.ingredientLines.length; j++) {
 					var ing = data.hits[i].recipe.ingredientLines[j];
 					
 					ingList.push(`<li>${ing}</li>`)
-					// console.log(ingList)
 				}
 
 				for (var j = 0; j < data.hits[i].recipe.dietLabels.length; j++) {
@@ -130,20 +112,19 @@ function doAjax(queryURL) {
 				dietList.push(dList);
 				healthList.push(hList);
 
-				var card = $('<div style="margin-bottom:20px" class="col-s-12 col-m-6 col-lg-4">');
+				var card = $('<div class="col-md-3 col-sm-4 col-xs-6 single_portfolio_text">');
 
 				var img = $("<img>");
-				// imgAPI = data.hits[i].recipe.image;
+				var txtdiv = $('<div class="portfolio_images_overlay text-center">');
+				var tit = $('<h6>')
+				title = data.hits[i].recipe.label;
+				var redBtn = $(`<a data-content='${i}' link-data='${title}' class="btn btn-primary addVids">Click here</a>`);
 				img.attr("src", imageURL);
 				card.append(img);
-
-				title = data.hits[i].recipe.label;
-
-				var link = $(`<a  data-content=${i} href="#" style="text-decoration:none;" class="addVids">`);
-				var span = $('<span class="badge badge-pill badge-dark" style="margin-top:10px;">');
-				span.text(title);
-				link.append(span);
-				card.append(link);
+				tit.text(title);
+				txtdiv.append(tit);
+				txtdiv.append(redBtn);
+				card.append(txtdiv);
 				flex.append(card);
 				
 
@@ -156,16 +137,17 @@ function doAjax(queryURL) {
 
 $(document).on('click', '.addVids', function () {
 	$('.article').empty();
-	// $('.article').append(`<button type="button" class="btn btn-primary back">Back</button>`);
+	$('.article').append(`<button type="button" class="btn btn-primary back">Back</button>`);
+	$('.article').append('<hr>');
 
 	var topRow = $('<div class = "row" id = "recipe-top-row">');
 	var imageDiv = $('<div class = "col-md-4">')
 	var img = $('<img class = "img-fluid img-thumbnail">');
-			img.attr("src", imageURL[parseInt($(this).attr('data-content'))]);
+	img.attr("src", imageURL[parseInt($(this).attr('data-content'))]);
 	imageDiv.html(img);
 	var titleDiv = $('<div class = "col-md-8">')
 	titleDiv.html(`<h2 class = "display-4">${labelList[parseInt($(this).attr('data-content'))]}</h2>`);
-	titleDiv.append(`<a target="_blank" href="${instructions[$(this).attr('data-content')]}"><h4>Click here to see full recipe here</h4>`)
+	titleDiv.append(`<a target="_blank" href="${instructions[$(this).attr('data-content')]}"><h4>Click here to see full recipe</h4>`)
 	topRow.append(imageDiv).append(titleDiv);
 	$('.article').append(topRow);
 	$('.article').append('<hr>');
@@ -175,7 +157,6 @@ $(document).on('click', '.addVids', function () {
 	var ingCard = $('<div class="card">');
 	var ingCardHeader = $('<div class = "card-header">');
 	var ingCardBody =  $('<div class = "card-body">')
-	// $('.article').append('<h2>Ingredients</h2>');
 	$(ingCardHeader).html(`<h5>${ingredientLength[parseInt($(this).attr('data-content'))]} Ingredients</h5>`);
 	$(ingCardBody).html(ingredientList[parseInt($(this).attr('data-content'))]);
 	$(ingCard).html(ingCardHeader).append(ingCardBody);
@@ -220,7 +201,7 @@ $(document).on('click', '.addVids', function () {
 	var healthCardHeader = $('<div class = "card-header">');
 	var healthCardBody =  $('<div class = "card-body">')
 	
-	$(healthCardHeader).append(`<h4>Health</h4>`);
+	$(healthCardHeader).append(`<h5>Health</h5>`);
 	$(healthCardBody).append(healthList[parseInt($(this).attr('data-content'))]);
 	$(healthCard).html(healthCardHeader).append(healthCardBody);
 	nutrDiv.append(healthCard)
@@ -251,14 +232,23 @@ $(document).on('click', '.addVids', function () {
 });
 
 $(".addRecipe").on("click", function (e) {
-	$(".recipeList").show();
-	$(".recipeInfo").hide();
-	$("#recipe-list").empty();
-	e.preventDefault();
-
+	
 	userInput = $("#targetRecipe").val().trim().toLowerCase();
 
-	var searchURL = queryURLbase + userInput;
-	doAjax(searchURL);
-	$("#targetRecipe").val("");
+	if (userInput){
+		$("#val-text").empty();
+	
+		$(".recipeList").show();
+		$(".recipeInfo").hide();
+		$("#recipe-list").empty();
+		e.preventDefault();
+		
+		var searchURL = queryURLbase + userInput;
+		doAjax(searchURL);
+		$("#targetRecipe").val("");
+	} else {
+		$("#val-text").append("You gotta add some ingredients, bro!");
+	};
+
+
 });
