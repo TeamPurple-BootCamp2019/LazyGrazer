@@ -26,19 +26,6 @@
 <body>
 
     <div class="wrapper">
-        <!-- <nav id="sidebar">
-            <div class="sidebar-header">
-                <img src="assets/images/lazygrazerlogo.png">
-                <h1 class="sidebarText">Get a Meal from ingredients in your fridge</h1>
-            </div>
-            <div class="container buttons">
-
-                <div class="input-group mb-3">
-                    <input id="targetRecipe" type="text" class="form-control" placeholder="" aria-label="Example text with button addon"
-                        aria-describedby="button-addon1">
-                </div>
-            <button type="button" class="btn btn-primary addRecipe">Search Meal</button>
-        </nav> -->
         <nav id="sidebar" class="">
             <div class="sidebar-header">
                 <img src="assets/images/lazygrazerlogo.png">
@@ -58,11 +45,16 @@
                     <li>
                         <button type="button" class="btn btn-dark addRecipe">Find a Meal</button>
                     </li>
+                    <br>
+                    <li id = "val-text">
+
+                    </li>
 
                 </ul>
             </div>
 
         </nav>
+
 <!-- 
             <button type="button" class="btn btn-primary addRecipe">Search Meal</button>
         </div>
@@ -73,6 +65,7 @@
 
         <!-- Sidebar ends -->
         <!-- Toggle Button and Title -->
+
         <div id="content">
 
             <nav class="navbar navbar-expand-lg">
@@ -91,16 +84,22 @@
             </nav>
 
             <div class="container">
-                <div class="container recipeList">
-
-                </div>
+                <section id="portfolio" class="portfolio">
+                    <div class="container">
+                        <div class="row">
+                            <div class="portfolio_content text-center recipeList" data-wow-duration="5s">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
                 <div class="container recipeInfo">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#recipe">Recipe List</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#videos">How to Make videos</a>
+                            <a class="nav-link" data-toggle="tab" href="#videos">How-to Videos</a>
                         </li>
 
                     </ul>
@@ -108,15 +107,15 @@
 
 
                     <div class="tab-content recipeContent">
-                        <div id="recipe" class="tab-pane fade in active">
-                  <!-- <h3>Recipe List</h3> -->
+                        <div id="recipe" class="tab-pane fadein active">
+                            <!-- <h3>Recipe List</h3> -->
                             <div class="container article">
 
 
                             </div>
                         </div>
                         <div id="videos" class="container tab-pane fade">
-                            <h3>How to make it Videos</h3>
+                            <!-- <h3>How-to Videos</h3> -->
                             <div class="container vids"></div>
                         </div>
                     </div>
@@ -138,7 +137,13 @@
         <script src="assets/js/youtube.js"></script>
         <script src="assets/js/recipe.js"></script>
         <script src="https://apis.google.com/js/client.js?onload=onClientLoad" type="text/javascript"></script>
-
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#sidebarCollapse').on('click', function () {
+                    $('#sidebar').toggleClass('active');
+                });
+            });
+        </script>
 
 
 </body>

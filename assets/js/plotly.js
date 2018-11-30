@@ -53,6 +53,7 @@ function createNutritionChart(target, nutrition) {
   
   // set layout information to stack
   let layout = {
+    title: "Daily Values",
     barmode: "stack",
   };
   
