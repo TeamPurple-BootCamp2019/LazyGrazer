@@ -119,7 +119,9 @@ function doAjax(queryURL) {
 				var txtdiv = $('<div class="portfolio_images_overlay text-center">');
 				var tit = $('<h6>')
 				title = data.hits[i].recipe.label;
-				var redBtn = $(`<a data-content='${i}' link-data='${title}' class="btn btn-primary addVids">Click here</a>`);
+
+				var redBtn = $(`<a data-content='${i}' link-data='${title}' class="btn btn-dark addVids">Click here</a>`);
+
 				img.attr("src", imageURL[i]);
 				card.append(img);
 				tit.text(title);
@@ -136,7 +138,9 @@ function doAjax(queryURL) {
 
 $(document).on('click', '.addVids', function () {
 	$('.article').empty();
+
 	// $('.article').append(`<button type="button" class="btn btn-primary back">Back</button>`);
+
 	$('.article').append('<hr>');
 
 	//Top Row - Image/Title/Link to Recipe Site
@@ -272,8 +276,11 @@ $(".addRecipe").on("click", function (e) {
 		doAjax(searchURL);
 		$("#targetRecipe").val("");
 	} else {
-		$("#val-text").append("You gotta add some ingredients, bro!");
+		$("#val-text").text("You gotta add some ingredients, bro!");
 	};
 
 
 });
+
+var searchURL = queryURLbase + "peanut butter, ketchup";
+		doAjax(searchURL);
