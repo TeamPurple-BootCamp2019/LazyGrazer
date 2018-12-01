@@ -30,7 +30,6 @@ $(document).on('click','.addVids',function() {
     $('.vids').empty();
     // $('.vids').append(`<button type="button" class="btn btn-primary back">Back</button>`);    
     var query = encodeURIComponent('how to make '+$(this).attr('link-data')).replace(/%20/g, "+");
-    debugger
     var request = gapi.client.youtube.search.list({
         part: 'snippet',
         q:query,
