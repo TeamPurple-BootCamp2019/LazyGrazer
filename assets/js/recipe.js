@@ -282,5 +282,5 @@ $(".addRecipe").on("click", function (e) {
 
 });
 
-var searchURL = queryURLbase + "peanut butter, ketchup";
+var searchURL = queryURLbase + "beef,noodles";
 		doAjax(searchURL);
