@@ -118,8 +118,8 @@ function doAjax(queryURL) {
 				var txtdiv = $('<div class="portfolio_images_overlay text-center">');
 				var tit = $('<h6>')
 				title = data.hits[i].recipe.label;
-				var redBtn = $(`<a data-content='${i}' link-data='${title}' class="btn btn-primary addVids">Click here</a>`);
-				img.attr("src", imageURL);
+				var redBtn = $(`<a data-content='${i}' link-data='${title}' class="btn btn-dark addVids">Click here</a>`);
+				img.attr("src", imageURL[i]);
 				card.append(img);
 				tit.text(title);
 				txtdiv.append(tit);
@@ -135,7 +135,7 @@ function doAjax(queryURL) {
 
 $(document).on('click', '.addVids', function () {
 	$('.article').empty();
-	$('.article').append(`<button type="button" class="btn btn-primary back">Back</button>`);
+	$('.article').append(`<button type="button" class="btn btn-dark back">Back</button>`);
 	$('.article').append('<hr>');
 
 	//Top Row - Image/Title/Link to Recipe Site
@@ -277,5 +277,5 @@ $(".addRecipe").on("click", function (e) {
 
 });
 
-var searchURL = queryURLbase + "cheese, onions, salt";
+var searchURL = queryURLbase + "peanut butter, ketchup";
 		doAjax(searchURL);
