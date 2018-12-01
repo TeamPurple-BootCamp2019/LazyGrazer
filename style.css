@@ -21,6 +21,18 @@ a:focus {
     transition: all 0.3s;
 }
 
+#recipeBtn {
+    color: white;
+}
+
+#recipeBtn:hover {
+    color: black;
+}
+
+#recipe-link {
+    color: rgb(255,193,7);
+}
+
 .card{
     margin-top: 10px;
 }
@@ -180,6 +192,9 @@ a.download {
     }
     #sidebarCollapse span {
         display: none;
+    }
+    .display-4 {
+        font-size: 35px;
     }
 }
 

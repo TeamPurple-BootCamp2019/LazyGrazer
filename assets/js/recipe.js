@@ -120,7 +120,7 @@ function doAjax(queryURL) {
 				var tit = $('<h6>')
 				title = data.hits[i].recipe.label;
 
-				var redBtn = $(`<a data-content='${i}' link-data='${title}' class="btn btn-dark addVids">Click here</a>`);
+				var redBtn = $(`<a data-content='${i}' link-data='${title}' id="recipeBtn" class="btn btn-outline-warning addVids">Click here</a>`);
 
 				img.attr("src", imageURL[i]);
 				card.append(img);
@@ -141,7 +141,7 @@ $(document).on('click', '.addVids', function () {
 
 	// $('.article').append(`<button type="button" class="btn btn-primary back">Back</button>`);
 
-	$('.article').append('<hr>');
+	// $('.article').append('<hr>');
 
 	//Top Row - Image/Title/Link to Recipe Site
 	var topRow = $('<div class = "row" id = "recipe-top-row">');
@@ -151,7 +151,7 @@ $(document).on('click', '.addVids', function () {
 	imageDiv.html(img);
 	var titleDiv = $('<div class = "col-md-8">')
 	titleDiv.html(`<h2 class = "display-4">${labelList[parseInt($(this).attr('data-content'))]}</h2>`);
-	titleDiv.append(`<a target="_blank" href="${instructions[$(this).attr('data-content')]}"><h4>Click here to see full recipe</h4>`)
+	titleDiv.append(`<a target="_blank" href="${instructions[$(this).attr('data-content')]}"><h4 id="recipe-link">Click here to see full recipe</h4>`)
 	topRow.append(imageDiv).append(titleDiv);
 	$('.article').append(topRow);
 	$('.article').append('<hr>');
