@@ -1,6 +1,6 @@
 $(".recipeInfo").hide();
 
-var queryURLbase = "https://api.edamam.com/search?&app_id=192e6853&app_key=97cc74f29550dbca8f09e9ac463a150f&from=0&to=12&q=";
+var queryURLbase = "https://api.edamam.com/search?&app_id=ad462f23&app_key=c5d61968ba32e77817ce3f93e4e84d4c&from=0&to=12&q=";
 var ingShowList = [];
 var ingredientList = [];
 var ingredientLength = [];
@@ -104,7 +104,7 @@ function doAjax(queryURL) {
 				weights.push(data.hits[i].recipe.totalWeight);
 				cookTimes.push(data.hits[i].recipe.totalTime);
 				instructions.push(data.hits[i].recipe.url);
-				imageURL.push(data.hits[i].recipe.image);
+				
 				labelList.push(data.hits[i].recipe.label);
 				ingredientLength.push(data.hits[i].recipe.ingredientLines.length);
 				digests.push(digestList);
@@ -115,11 +115,12 @@ function doAjax(queryURL) {
 				var card = $('<div class="col-md-3 col-sm-4 col-xs-6 single_portfolio_text">');
 
 				var img = $("<img>");
+				imageURL.push(data.hits[i].recipe.image);
 				var txtdiv = $('<div class="portfolio_images_overlay text-center">');
 				var tit = $('<h6>')
 				title = data.hits[i].recipe.label;
 				var redBtn = $(`<a data-content='${i}' link-data='${title}' class="btn btn-primary addVids">Click here</a>`);
-				img.attr("src", imageURL);
+				img.attr("src", imageURL[i]);
 				card.append(img);
 				tit.text(title);
 				txtdiv.append(tit);
@@ -135,7 +136,7 @@ function doAjax(queryURL) {
 
 $(document).on('click', '.addVids', function () {
 	$('.article').empty();
-	$('.article').append(`<button type="button" class="btn btn-primary back">Back</button>`);
+	// $('.article').append(`<button type="button" class="btn btn-primary back">Back</button>`);
 	$('.article').append('<hr>');
 
 	//Top Row - Image/Title/Link to Recipe Site
