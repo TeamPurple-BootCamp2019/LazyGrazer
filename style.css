@@ -55,6 +55,12 @@ a:focus {
 text-align: left;
 }
 
+/*LOGO*/
+
+#egg {
+    height: 160px;
+}
+
 /* SIDEBAR STYLE */
 
 .wrapper {
