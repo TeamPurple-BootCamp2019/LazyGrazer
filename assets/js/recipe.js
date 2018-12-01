@@ -282,5 +282,5 @@ $(".addRecipe").on("click", function (e) {
 
 });
 
-var searchURL = queryURLbase + "beef,noodles";
+var searchURL = queryURLbase + "beef, noodles";
 		doAjax(searchURL);
